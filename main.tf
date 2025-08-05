@@ -20,7 +20,7 @@ resource "docker_image" "postgres" {
 
 # Create a Docker container for the database.
 resource "docker_container" "postgres_db" {
-  name  = "property-db"
+  name  = "${var.docker_container_name}"
   image = docker_image.postgres.name
 
   # Expose the PostgreSQL port.
@@ -51,7 +51,12 @@ resource "docker_container" "postgres_db" {
   # Wait for the database to be ready before proceeding.
   # This is a common and important step to ensure subsequent commands don't fail.
   provisioner "local-exec" {
-    command = "until podman exec property-db pg_isready; do sleep 1; done"
+    command = "until podman exec ${var.docker_container_name} pg_isready; do sleep 1; done"
+  }
+
+  # This provisioner runs the SQL script to create the inventory table.
+  provisioner "local-exec" {
+    command = "cat ./init.sql | podman exec ${var.docker_container_name} psql -U ${var.db_user} -d ${var.db_name}"
   }
 
   # Ignore changes that cause a replacement on consequentive applies.

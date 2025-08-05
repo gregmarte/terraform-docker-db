@@ -15,3 +15,9 @@ variable "db_password" {
   type        = string
   sensitive   = true # This masks the value in the plan output.
 }
+
+variable "docker_container_name" {
+  description = "The container name for the PostgreSQL databases"
+  type        = string
+  default     = "postgres_container"
+}

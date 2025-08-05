@@ -12,3 +12,9 @@ On Mac.
 > terrafom init
 > terraform plan
 > terraform apply
+
+# Connecting to the database
+> podman exec -it postgres_container psql -U admin -d property_db
+> \l
+> \dt
+> select * from inventory;

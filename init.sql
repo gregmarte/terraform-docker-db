@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS inventory (
+  date DATE NOT NULL,
+  zip VARCHAR(5) NOT NULL,
+  count INTEGER NOT NULL,
+  notes VARCHAR(255)
+);
