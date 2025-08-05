@@ -3,6 +3,9 @@ Using Podman instead of Docker.
 On Mac.
 
 
+# Pre-reqs (system startup)
+> podman machine start
+
 # How to run
 > mkdir /Users/Shared/Databases
 

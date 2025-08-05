@@ -53,4 +53,13 @@ resource "docker_container" "postgres_db" {
   provisioner "local-exec" {
     command = "until podman exec property-db pg_isready; do sleep 1; done"
   }
+
+  # Ignore changes that cause a replacement on consequentive applies.
+  lifecycle {
+    ignore_changes = [
+      image,
+      pid_mode,
+      ulimit,
+    ]
+  }
 }
